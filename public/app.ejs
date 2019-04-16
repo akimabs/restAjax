@@ -1,0 +1,33 @@
+<%- include('templates/header'); -%>
+<div class="pl-5 pr-5">
+  <div class="row mt-3">
+    <div class="col-lg-5">
+      <div class="jumbotron">
+      <p class="lead">Rest Api AJAX</p>
+      <form id="create-form">
+            <div class="form-group">
+                <input type="text" id="input-nama" class="form-control" placeholder="Name" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <input type="text" id="input-nim" class="form-control" placeholder="Nim" autocomplete="off">
+            </div>
+            <button class="btn btn-primary">Create</button>
+            <button class="btn btn-success" id="get-button">Read</button>
+        </form>
+  </div>
+</div>
+  <div class="col-lg-6">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Nim</th>
+          <th scope="col">Handle</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </div>
+  </div>
+</div>
+<%- include('templates/footer'); -%>
