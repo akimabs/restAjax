@@ -20,14 +20,14 @@ $(() => {
 							'</td>\
                     <td><input type="text" class="name form-control mb-5" value="' +
 							dataku.nama +
-							'" disabled></td>\
+							'"></td>\
                     <td class="nim p-3">' +
 							dataku.nim +
 							'</td>\
                     <td>\
                     <button class="btn btn-danger delete">Delete</button>\
                     <button class="btn btn-success edit">Edit</button>\
-                    </td>\
+					</td>\
                     </tr>\
                     '
 					);
@@ -37,7 +37,7 @@ $(() => {
 	});
 
 	// Create / Post
-	$('#create-form').on('submit', (event) => {
+	$('#create-data').on('click', (event) => {
 		event.preventDefault();
 		let inputNama = $('#input-nama');
 		let inputNim = $('#input-nim');
@@ -57,5 +57,42 @@ $(() => {
 				$('#get-button').click();
 			}
 		});
+	});
+
+	// edit
+
+	$('table').on('click', '.edit', () => {
+		let rowEl = $(this).closest('tr');
+		let id = rowEl.find('.id').text();
+		let newName = rowEl.find('.name').val();
+
+		console.log(id);
+
+		// $.ajax({
+		// 	url: '/data/' + id,
+		// 	method: 'PUT',
+		// 	contentType: 'application/json',
+		// 	data: JSON.stringify({ newName: newName }),
+		// 	success: (response) => {
+		// 		console.log(response);
+		// 		$('#get-button').click();
+		// 	}
+		// });
+	});
+
+	// delete
+	$('table').on('click', '.delete', () => {
+		let rowEl = $(this).closest('tr');
+		let id = rowEl.find('.id').text();
+
+		// $.ajax({
+		// 	url: '/data/' + id,
+		// 	method: 'DELETE',
+		// 	contentType: 'application/json',
+		// 	succes: (response) => {
+		// 		console.log(response);
+		// 		$('#get-button').click();
+		// 	}
+		// });
 	});
 });

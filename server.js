@@ -13,7 +13,7 @@ let data = [
 		nim: 238
 	}
 ];
-let currentId = 2;
+let currentId = 1;
 
 app.listen(PORT, () => {
 	console.log('Server listening on port ' + PORT);
@@ -55,5 +55,32 @@ app.post('/data', (req, res) => {
 	});
 
 	res.send('successfully create data');
+});
+
+app.put('/data/:id', (req, res) => {
+	let id = req.params.id;
+	let newName = req.body.newName;
+
+	let found = false;
+
+	data.forEach((dataku, index) => {
+		if (!found && dataku.id === Number(id)) {
+			dataku.nama = newName;
+		}
+	});
+	res.send('Succesfully edit data');
+});
+
+app.delete('/data/:id', (req, res) => {
+	let id = req.params.id;
+	let found = false;
+
+	data.forEach((dataku, index) => {
+		if (!found && dataku.id === Number(id)) {
+			data.splice(index, 1);
+		}
+	});
+
+	res.send('Succesfully delete data');
 });
 // gaskeun
