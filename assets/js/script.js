@@ -1,7 +1,7 @@
 $(() => {
 	// READ / GET
 	$('#get-button').on('click', () => {
-		event.preventDefault();
+		// event.preventDefault();
 
 		$.ajax({
 			url: '/data',
@@ -15,13 +15,13 @@ $(() => {
 					tBodyEl.append(
 						'\
                     <tr>\
-                    <td class="id p-3">' +
+                    <td class="id p-3" id="id">' +
 							dataku.id +
 							'</td>\
-                    <td><input type="text" class="name form-control mb-5" value="' +
+                    <td><input type="text" class="name form-control mb-5" id="nama" value="' +
 							dataku.nama +
 							'"></td>\
-                    <td class="nim p-3">' +
+                    <td class="nim p-3" id="nim">' +
 							dataku.nim +
 							'</td>\
                     <td>\
@@ -31,6 +31,43 @@ $(() => {
                     </tr>\
                     '
 					);
+				});
+
+				// edit
+				$('.edit').click(function() {
+					let rowEl = $(this).closest('tr');
+					let id = rowEl.find('.id').text();
+					let newName = rowEl.find('.name').val();
+
+					console.log(id);
+
+					$.ajax({
+						url: '/data/' + id,
+						method: 'PUT',
+						contentType: 'application/json',
+						data: JSON.stringify({ newName: newName }),
+						success: (response) => {
+							console.log(response);
+							$('#get-button').click();
+							alert('Succesfully edit data');
+						}
+					});
+				});
+
+				// delete
+				$('.delete').click(function() {
+					let rowEl = $(this).closest('tr');
+					let id = rowEl.find('.id').text();
+					console.log(id);
+					$.ajax({
+						url: '/data/' + id,
+						method: 'DELETE',
+						contentType: 'application/json',
+						success: (response) => {
+							console.log(response);
+							$('#get-button').click();
+						}
+					});
 				});
 			}
 		});
@@ -57,42 +94,5 @@ $(() => {
 				$('#get-button').click();
 			}
 		});
-	});
-
-	// edit
-
-	$('table').on('click', '.edit', () => {
-		let rowEl = $(this).closest('tr');
-		let id = rowEl.find('.id').text();
-		let newName = rowEl.find('.name').val();
-
-		console.log(id);
-
-		// $.ajax({
-		// 	url: '/data/' + id,
-		// 	method: 'PUT',
-		// 	contentType: 'application/json',
-		// 	data: JSON.stringify({ newName: newName }),
-		// 	success: (response) => {
-		// 		console.log(response);
-		// 		$('#get-button').click();
-		// 	}
-		// });
-	});
-
-	// delete
-	$('table').on('click', '.delete', () => {
-		let rowEl = $(this).closest('tr');
-		let id = rowEl.find('.id').text();
-
-		// $.ajax({
-		// 	url: '/data/' + id,
-		// 	method: 'DELETE',
-		// 	contentType: 'application/json',
-		// 	succes: (response) => {
-		// 		console.log(response);
-		// 		$('#get-button').click();
-		// 	}
-		// });
 	});
 });
